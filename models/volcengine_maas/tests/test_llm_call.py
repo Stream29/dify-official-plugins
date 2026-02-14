@@ -13,6 +13,8 @@ from dify_plugin.entities.model import ModelType
 from dify_plugin.entities.model.llm import LLMResultChunk
 from dify_plugin.integration.run import PluginRunner
 
+from models.llm.models import configs
+
 
 def _required_env(name: str) -> str:
     value = os.getenv(name)
@@ -25,7 +27,7 @@ def _test_models() -> list[str]:
     models = os.getenv("VOLCENGINE_TEST_MODELS", "").strip()
     if models:
         return [m.strip() for m in models.split(",") if m.strip()]
-    return [os.getenv("VOLCENGINE_BASE_MODEL", "Doubao-Seed-1.8")]
+    return sorted(configs.keys())
 
 
 @pytest.mark.parametrize("model_name", _test_models())
