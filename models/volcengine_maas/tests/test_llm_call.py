@@ -13,7 +13,6 @@ from dify_plugin.entities.model import ModelType
 from dify_plugin.entities.model.llm import LLMResultChunk
 from dify_plugin.integration.run import PluginRunner
 
-from models.llm.models import configs
 
 
 def _required_env(name: str) -> str:
@@ -23,17 +22,24 @@ def _required_env(name: str) -> str:
     return value
 
 
+def _default_model_id() -> str:
+    # Use a stable public model id for CI when no endpoint is provided.
+    # Volcengine Ark docs show direct invocation via model id.
+    return os.getenv("VOLCENGINE_MODEL_ID", "doubao-seed-1-6-251015")
+
+
 def _test_models() -> list[str]:
     models = os.getenv("VOLCENGINE_TEST_MODELS", "").strip()
     if models:
         return [m.strip() for m in models.split(",") if m.strip()]
-    return sorted(configs.keys())
+    return [_default_model_id()]
 
 
 @pytest.mark.parametrize("model_name", _test_models())
 def test_llm_invoke(model_name: str) -> None:
     api_key = _required_env("VOLCENGINE_API_KEY")
-    endpoint_id = _required_env("VOLCENGINE_ENDPOINT_ID")
+    # Prefer endpoint id if provided; otherwise, fall back to model id.
+    endpoint_id = os.getenv("VOLCENGINE_ENDPOINT_ID") or model_name
 
     plugin_path = os.getenv("PLUGIN_FILE_PATH")
     if not plugin_path:
