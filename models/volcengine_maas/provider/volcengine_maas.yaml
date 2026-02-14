@@ -124,6 +124,18 @@ model_credential_schema:
         - variable: __model_type
           value: llm
     - label:
+        en_US: Doubao-Seed-Code
+      value: Doubao-Seed-Code
+      show_on:
+        - variable: __model_type
+          value: llm
+    - label:
+        en_US: Doubao-Seed-Code
+      value: Doubao-Seed-Code
+      show_on:
+        - variable: __model_type
+          value: llm
+    - label:
         en_US: Doubao-Seed-1.6-lite
       value: Doubao-Seed-1.6-lite
       show_on:
@@ -198,6 +210,18 @@ model_credential_schema:
     - label:
         en_US: Doubao-1.5-thinking-pro
       value: Doubao-1.5-thinking-pro
+      show_on:
+        - variable: __model_type
+          value: llm
+    - label:
+        en_US: Doubao-1.5-thinking-pro-m
+      value: Doubao-1.5-thinking-pro-m
+      show_on:
+        - variable: __model_type
+          value: llm
+    - label:
+        en_US: Doubao-1.5-thinking-pro-m
+      value: Doubao-1.5-thinking-pro-m
       show_on:
         - variable: __model_type
           value: llm
